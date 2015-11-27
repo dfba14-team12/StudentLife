@@ -1,5 +1,6 @@
 package it.poliba.studentlife;
 
+import android.animation.Animator;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.EditText;
 
 import com.firebase.client.Firebase;
@@ -90,9 +92,36 @@ public class AddPrenotazioneActivity extends AppCompatActivity implements TimePi
                 Ricevimento ricevimento = new Ricevimento(aula, giorno, ora, telefono, id);
                 Firebase mFirebase = new Firebase(FIREBASE_URL);
                 mFirebase.child("prenotazioni").child("tommy").push().setValue(ricevimento);
-                finish();
+                startAnimation();
             }
         });
+    }
+
+    private void startAnimation() {
+        // previously invisible view
+        View myView = findViewById(R.id.ripple);
+
+// get the center for the clipping circle
+        int cx = myView.getWidth();
+        int cy = 0;
+
+// get the final radius for the clipping circle
+        int finalRadius = Math.max(myView.getWidth(), myView.getHeight());
+
+// create the animator for this view (the start radius is zero)
+        Animator anim =
+                null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0, finalRadius);
+        }
+
+// make the view visible and start the animation
+        myView.setVisibility(View.VISIBLE);
+        anim.start();
+    }
+
+    public void finishActivity(View v){
+        finish();
     }
 
 
@@ -104,7 +133,15 @@ public class AddPrenotazioneActivity extends AppCompatActivity implements TimePi
 
     @Override
     public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int second) {
-        ora = hourOfDay + ":"+minute;
+        String hour = hourOfDay+"";
+        if (hourOfDay<10) {
+            hour = "0"+hour;
+        }
+        String minutes = hourOfDay+"";
+        if (minute<10) {
+            minutes = "0"+minutes;
+        }
+        ora = hour + ":"+minutes;
         oraEditText.setText(ora);
     }
 }

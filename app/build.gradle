@@ -25,5 +25,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.wdullaer:materialdatetimepicker:2.0.2'
+    compile 'org.osmdroid:osmdroid-android:5.0.1@aar'
     compile files('libs/firebase-client-android-2.4.1.jar')
 }

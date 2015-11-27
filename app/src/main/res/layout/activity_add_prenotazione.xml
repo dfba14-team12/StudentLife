@@ -8,6 +8,8 @@
     tools:context="it.poliba.studentlife.AddPrenotazioneActivity">
 
     <RelativeLayout
+        android:id="@+id/content"
+        android:visibility="visible"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
@@ -37,7 +39,7 @@
         android:layout_marginRight="16dp"
         android:layout_below="@id/appbar"
         android:layout_marginTop="-32dp"
-        android:src="@android:drawable/ic_dialog_email" />
+        android:src="@drawable/ic_chevron_right_black_24dp" />
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -87,5 +89,20 @@
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
     </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ripple"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#8BC34A"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_done_black_24dp"
+            android:onClick="finishActivity"/>
+
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
